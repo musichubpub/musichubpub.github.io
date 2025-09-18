@@ -202,11 +202,16 @@
                 <h2 class="platform-name">iOS</h2>
                 <p>支持iPhone和iPad设备</p>
                 <p>需要iOS 13.0或更高版本</p>
-                <a href="https://apps.apple.com/app/id123456789" class="download-btn">App Store下载</a>
+                <a href="#" class="download-btn">App Store下载</a>
                 <div class="mobile-qr-section" id="ios-qr">
                     <p>使用手机扫描下方二维码下载</p>
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://apps.apple.com/app/id123456789"
                         alt="iOS下载二维码" class="qr-code">
+                </div>
+                <div class="download-options">
+                    <a href="#" class="download-btn secondary-btn">TestFlight</a>
+                    <!-- <a href="https://galaxy.store/example" class="download-btn secondary-btn">三星应用商店</a>
+                    <a href="https://appgallery.huawei.com/#/app/example" class="download-btn secondary-btn">华为应用市场</a> -->
                 </div>
             </div>
 
@@ -217,18 +222,17 @@
                 <h2 class="platform-name">Android</h2>
                 <p>支持手机和平板设备</p>
                 <p>需要Android 8.0或更高版本</p>
-                <a href="https://play.google.com/store/apps/details?id=com.example.app" class="download-btn">Google
-                    Play下载</a>
+                <a href="#" class="download-btn">Google Play下载</a>
                 <div class="mobile-qr-section" id="android-qr">
                     <p>使用手机扫描下方二维码下载</p>
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://play.google.com/store/apps/details?id=com.example.app"
                         alt="Android下载二维码" class="qr-code">
                 </div>
-                <!-- <div class="download-options">
-                    <a href="https://example.com/download/android/apk" class="download-btn secondary-btn">直接下载APK</a>
-                    <a href="https://galaxy.store/example" class="download-btn secondary-btn">三星应用商店</a>
-                    <a href="https://appgallery.huawei.com/#/app/example" class="download-btn secondary-btn">华为应用市场</a>
-                </div> -->
+                <div class="download-options">
+                    <a href="#" class="download-btn secondary-btn">直接下载APK</a>
+                    <!-- <a href="https://galaxy.store/example" class="download-btn secondary-btn">三星应用商店</a>
+                    <a href="https://appgallery.huawei.com/#/app/example" class="download-btn secondary-btn">华为应用市场</a> -->
+                </div>
             </div>
 
             <!-- <div class="platform-card windows" id="windows-card">
@@ -279,38 +283,34 @@
         function detectPlatformAndReorder() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-            const isTablet = /iPad|Android|Tablet/i.test(userAgent);
-            const isDesktop = !isMobile && !isTablet;
 
             // 检测平台
             if (/android/i.test(userAgent)) {
                 document.getElementById('android-card').style.order = 1;
-                if (isDesktop || isTablet) {
-                    document.getElementById('android-qr').style.display = 'block';
-                }
             } else if (/iPad|iPhone|iPod/i.test(userAgent)) {
                 document.getElementById('ios-card').style.order = 1;
-                if (isDesktop || isTablet) {
-                    document.getElementById('ios-qr').style.display = 'block';
-                }
             } else if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(userAgent)) {
-                document.getElementById('macos-card').style.order = 1;
+                // document.getElementById('macos-card').style.order = 1;
+                // document.getElementById('ios-qr').style.display = 'block';
+                // showQRCode('iOS', 'https://apps.apple.com/app/id123456789');
+                // document.getElementById('android-qr').style.display = 'block';
+                // showQRCode('Android', 'https://play.google.com/store/apps/details?id=com.example.app');
             } else if (/Win/i.test(userAgent)) {
-                document.getElementById('windows-card').style.order = 1;
+                // document.getElementById('windows-card').style.order = 1;
             }
 
-            // 如果是桌面或平板设备，显示动态二维码区域
-            if (isDesktop || isTablet) {
-                document.getElementById('desktop-qr').style.display = 'block';
+            // // 如果是桌面或平板设备，显示动态二维码区域
+            // if (isDesktop || isTablet) {
+            //     document.getElementById('desktop-qr').style.display = 'block';
 
-                // 根据用户偏好显示二维码
-                const preferredPlatform = localStorage.getItem('preferredPlatform');
-                if (preferredPlatform === 'ios') {
-                    showQRCode('iOS', 'https://apps.apple.com/app/id123456789');
-                } else if (preferredPlatform === 'android') {
-                    showQRCode('Android', 'https://play.google.com/store/apps/details?id=com.example.app');
-                }
-            }
+            //     // 根据用户偏好显示二维码
+            //     const preferredPlatform = localStorage.getItem('preferredPlatform');
+            //     if (preferredPlatform === 'ios') {
+            //         showQRCode('iOS', 'https://apps.apple.com/app/id123456789');
+            //     } else if (preferredPlatform === 'android') {
+            //         showQRCode('Android', 'https://play.google.com/store/apps/details?id=com.example.app');
+            //     }
+            // }
         }
 
         // 显示特定平台的二维码
@@ -324,13 +324,13 @@
         }
 
         // 设置平台偏好
-        function setPlatformPreference(platform) {
-            localStorage.setItem('preferredPlatform', platform);
-            const url = platform === 'ios'
-                ? 'https://apps.apple.com/app/id123456789'
-                : 'https://play.google.com/store/apps/details?id=com.example.app';
-            showQRCode(platform === 'ios' ? 'iOS' : 'Android', url);
-        }
+        //function setPlatformPreference(platform) {
+        //     localStorage.setItem('preferredPlatform', platform);
+        //     const url = platform === 'ios'
+        //         ? 'https://apps.apple.com/app/id123456789'
+        //         : 'https://play.google.com/store/apps/details?id=com.example.app';
+        //     showQRCode(platform === 'ios' ? 'iOS' : 'Android', url);
+        // }
 
         // 页面加载完成后执行
         window.addEventListener('DOMContentLoaded', detectPlatformAndReorder);
